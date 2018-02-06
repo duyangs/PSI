@@ -3,7 +3,10 @@ package com.duyangs.psi;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.telephony.CellLocation;
 import android.telephony.TelephonyManager;
+import android.telephony.cdma.CdmaCellLocation;
+import android.telephony.gsm.GsmCellLocation;
 
 /**
  * "SDCard Info " PSI
@@ -13,7 +16,6 @@ import android.telephony.TelephonyManager;
  */
 
 public class SDCardIUtils {
-
 
 
     /**
@@ -31,6 +33,21 @@ public class SDCardIUtils {
     }
 
     /**
+     * 获取 ICCID 码
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
+     *
+     * @return ICCID 码
+     */
+    @SuppressLint({"HardwareIds", "MissingPermission"})
+    public static String getICCID() {
+        TelephonyManager tm =
+                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+        return tm != null ? tm.getSimSerialNumber() : null;
+    }
+
+
+    /**
      * 获取移动终端类型
      *
      * @return 手机制式
@@ -41,7 +58,7 @@ public class SDCardIUtils {
      * <li>{@link TelephonyManager#PHONE_TYPE_SIP  } : 3</li>
      * </ul>
      */
-    public static int getPhoneType(Application application) {
+    public static int getPhoneType() {
         TelephonyManager tm =
                 (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getPhoneType() : -1;
@@ -138,5 +155,31 @@ public class SDCardIUtils {
         str += "SubscriberId(IMSI) = " + tm.getSubscriberId() + "\n";
         str += "VoiceMailNumber = " + tm.getVoiceMailNumber() + "\n";
         return str;
+    }
+
+    /**
+     * 获取CallId
+     *
+     * @return int callId
+     */
+    @SuppressLint("MissingPermission")
+    public static int getCALLID() {
+        int cellId = 0;
+        TelephonyManager tel = (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+        if (tel == null) {
+            return cellId;
+        }
+        CellLocation cel = tel.getCellLocation();
+        //移动联通 GsmCellLocation
+        if (cel instanceof GsmCellLocation) {
+            GsmCellLocation gsmCellLocation = (GsmCellLocation) cel;
+            cellId = gsmCellLocation.getCid();
+        } else if (cel instanceof CdmaCellLocation) {
+            //电信   CdmaCellLocation
+            CdmaCellLocation cdmaCellLocation = (CdmaCellLocation) cel;
+            cellId = cdmaCellLocation.getBaseStationId();
+        }
+
+        return cellId;
     }
 }
