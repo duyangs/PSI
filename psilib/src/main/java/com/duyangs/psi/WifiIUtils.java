@@ -8,6 +8,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class WifiIUtils {
         // 获取wifi服务
         WifiManager wifiManager = (WifiManager) PSIUtil.getApp().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         // 判断wifi是否开启
-        if (wifiManager == null){
+        if (wifiManager == null) {
             return 0;
         }
         if (!wifiManager.isWifiEnabled()) {
@@ -54,13 +55,17 @@ public class WifiIUtils {
     public static List<ScanResult> getWIFIList() {
 
         if (Build.VERSION.SDK_INT >= 23 && !SystemIUtils.isOpenGPS()) {
-            Settings.Secure.putInt(PSIUtil.getApp().getContentResolver(), Settings.Secure.LOCATION_MODE, 1);
+            try {
+                Settings.Secure.putInt(PSIUtil.getApp().getContentResolver(), Settings.Secure.LOCATION_MODE, 1);
+            }catch (SecurityException e){
+                Log.e("SecurityException","无法获取WRITE_SECURE_SETTINGS权限");
+            }
         }
 
         List<ScanResult> wifiList;
         // 获取wifi服务
         WifiManager wifiManager = (WifiManager) PSIUtil.getApp().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (wifiManager == null){
+        if (wifiManager == null) {
             return new ArrayList<>();
         }
         // 判断wifi是否开启
