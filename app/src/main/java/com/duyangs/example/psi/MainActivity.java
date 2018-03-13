@@ -1,7 +1,6 @@
 package com.duyangs.example.psi;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.support.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.duyangs.psi.LocationIUtils;
-import com.duyangs.psi.LocationIUtils2;
 import com.duyangs.psi.SDCardIUtils;
 import com.duyangs.psi.SystemIUtils;
 import com.duyangs.psi.WifiIUtils;
@@ -75,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 "\n" + "Location Info\n" +
                 "GPS: " + LocationIUtils.getGPSLocation() + "\n" +
                 "NetWork: " + LocationIUtils.getNetWorkLocation() + "\n" +
-                "Best: " + LocationIUtils.getBestLocation(this,new Criteria()) + "\n" +
-                "lllll:" + LocationIUtils2.getInstance(this).getLocation();
+                "Best: " + LocationIUtils.getBestLocation(this,new Criteria()) + "\n";
         textView.setText(stringBuilder);
     }
 
