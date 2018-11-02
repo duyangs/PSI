@@ -1,7 +1,6 @@
 package com.duyangs.psi;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Context;
 import android.telephony.CellLocation;
 import android.telephony.TelephonyManager;
@@ -28,7 +27,7 @@ public class SDCardIUtils {
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public static String getIMSI() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getSubscriberId() : null;
     }
 
@@ -42,7 +41,7 @@ public class SDCardIUtils {
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public static String getICCID() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getSimSerialNumber() : null;
     }
 
@@ -60,7 +59,7 @@ public class SDCardIUtils {
      */
     public static int getPhoneType() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getPhoneType() : -1;
     }
 
@@ -71,7 +70,7 @@ public class SDCardIUtils {
      */
     public static boolean isSimCardReady() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
     }
 
@@ -83,7 +82,7 @@ public class SDCardIUtils {
      */
     public static String getSimOperatorName() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getSimOperatorName() : null;
     }
 
@@ -95,7 +94,7 @@ public class SDCardIUtils {
      */
     public static String getSimOperatorByMnc() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         String operator = tm != null ? tm.getSimOperator() : null;
         if (operator == null) return null;
         switch (operator) {
@@ -136,7 +135,7 @@ public class SDCardIUtils {
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public static String getPhoneStatus() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         if (tm == null) return "";
         String str = "";
         str += "DeviceId(IMEI) = " + tm.getDeviceId() + "\n";
@@ -165,7 +164,7 @@ public class SDCardIUtils {
     @SuppressLint("MissingPermission")
     public static int getCALLID() {
         int cellId = 0;
-        TelephonyManager tel = (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tel = (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         if (tel == null) {
             return cellId;
         }

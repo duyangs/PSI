@@ -2,6 +2,7 @@ package com.duyangs.psi;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 /**
@@ -14,7 +15,7 @@ import android.support.annotation.NonNull;
 public class PSIUtil {
 
     @SuppressLint("StaticFieldLeak")
-    private static Application sApplication;
+    private static Context mContext;
 
     private PSIUtil() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -23,10 +24,10 @@ public class PSIUtil {
     /**
      * init PSIUtil
      *
-     * @param app application
+     * @param context Context
      */
-    public static void init(@NonNull final Application app) {
-        PSIUtil.sApplication = app;
+    public static void init(@NonNull final Context context) {
+        PSIUtil.mContext = context;
     }
 
     /**
@@ -34,8 +35,8 @@ public class PSIUtil {
      *
      * @return Application
      */
-    public static Application getApp() {
-        if (sApplication != null) return sApplication;
+    public static Context getContext() {
+        if (mContext != null) return mContext;
         throw new NullPointerException("u should init first");
     }
 

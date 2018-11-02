@@ -1,7 +1,6 @@
 package com.duyangs.psi;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
 import android.os.Build;
@@ -66,7 +65,7 @@ public class SystemIUtils {
      */
     public static boolean isPhone() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
     }
 
@@ -80,7 +79,7 @@ public class SystemIUtils {
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public static String getIMEI() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getDeviceId() : null;
     }
 
@@ -94,7 +93,7 @@ public class SystemIUtils {
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public static String getMEID() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getDeviceId() : null;
     }
 
@@ -108,7 +107,7 @@ public class SystemIUtils {
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public static String getMNC() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         if (tm == null) {
             return null;
         }
@@ -129,7 +128,7 @@ public class SystemIUtils {
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public static String getMCC() {
         TelephonyManager tm =
-                (TelephonyManager) PSIUtil.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) PSIUtil.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         if (tm == null) {
             return null;
         }
@@ -325,7 +324,7 @@ public class SystemIUtils {
      */
     @SuppressLint("HardwareIds")
     public static String getAndroidId() {
-        return Settings.Secure.getString(PSIUtil.getApp().getContentResolver(), Settings.Secure.ANDROID_ID);
+        return Settings.Secure.getString(PSIUtil.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     /**
@@ -366,7 +365,7 @@ public class SystemIUtils {
      */
     static boolean isOpenGPS() {
         LocationManager locationManager
-                = (LocationManager) PSIUtil.getApp().getSystemService(Context.LOCATION_SERVICE);
+                = (LocationManager) PSIUtil.getContext().getSystemService(Context.LOCATION_SERVICE);
         return locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 

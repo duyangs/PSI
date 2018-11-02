@@ -54,9 +54,9 @@ public class LocationIUtils {
      */
     public static Location getGPSLocation() {
         Location location = null;
-        LocationManager manager = getLocationManager(PSIUtil.getApp());
+        LocationManager manager = getLocationManager(PSIUtil.getContext());
         //高版本的权限检查
-        if (ActivityCompat.checkSelfPermission(PSIUtil.getApp(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(PSIUtil.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
         if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {//是否支持GPS定位
@@ -71,9 +71,9 @@ public class LocationIUtils {
      */
     public static Location getNetWorkLocation() {
         Location location = null;
-        LocationManager manager = getLocationManager(PSIUtil.getApp());
+        LocationManager manager = getLocationManager(PSIUtil.getContext());
         //高版本的权限检查
-        if (ActivityCompat.checkSelfPermission(PSIUtil.getApp(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(PSIUtil.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
         if (manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {//是否支持Network定位

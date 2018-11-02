@@ -2,7 +2,6 @@ package com.duyangs.psi;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -32,7 +31,7 @@ public class WifiIUtils {
     @SuppressLint("MissingPermission")
     public static int getWIFIAddress() {
         // 获取wifi服务
-        WifiManager wifiManager = (WifiManager) PSIUtil.getApp().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) PSIUtil.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         // 判断wifi是否开启
         if (wifiManager == null) {
             return 0;
@@ -56,7 +55,8 @@ public class WifiIUtils {
 
         if (Build.VERSION.SDK_INT >= 23 && !SystemIUtils.isOpenGPS()) {
             try {
-                Settings.Secure.putInt(PSIUtil.getApp().getContentResolver(), Settings.Secure.LOCATION_MODE, 1);
+                //noinspection deprecation
+                Settings.Secure.putInt(PSIUtil.getContext().getContentResolver(), Settings.Secure.LOCATION_MODE, 1);
             }catch (SecurityException e){
                 Log.e("SecurityException","无法获取WRITE_SECURE_SETTINGS权限");
             }
@@ -64,7 +64,7 @@ public class WifiIUtils {
 
         List<ScanResult> wifiList;
         // 获取wifi服务
-        WifiManager wifiManager = (WifiManager) PSIUtil.getApp().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) PSIUtil.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (wifiManager == null) {
             return new ArrayList<>();
         }
