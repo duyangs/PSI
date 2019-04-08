@@ -31,6 +31,17 @@ import static android.content.ContentValues.TAG;
 
 public class SystemIUtils {
 
+
+    /**
+     * 获取手机厂商
+     *
+     * @return  手机厂商
+     */
+    public static String getDeviceBrand() {
+        return android.os.Build.BRAND;
+    }
+
+
     /**
      * get phone model
      *

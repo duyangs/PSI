@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private void show() {
         textView = findViewById(R.id.text);
         String stringBuilder = "SYSTEM INFO \n" +
+                "DEVICE BRAND: " + SystemIUtils.getDeviceBrand() + "\n" +
                 "PHONE MODEL: " + SystemIUtils.getPModel() + "\n" +
                 "PHONE SDK INT: " + SystemIUtils.getPSDKInt() + "\n" +
                 "SYSTEM RELEASE: " + SystemIUtils.getSystemRelease() + "\n" +
